@@ -1,0 +1,34 @@
+# Python
+__pycache__/
+*.pyc
+
+# Virtual environments
+venv/
+env/
+fap-env/
+
+# Environment variables
+.env
+
+# ML / AI
+models/
+checkpoints/
+*.h5
+*.pt
+*.pth
+*.pkl
+*.joblib
+
+# Data
+data/
+datasets/
+*.csv
+
+# VS Code
+.vscode/
+
+# Node
+node_modules/
+
+# Logs
+*.log
