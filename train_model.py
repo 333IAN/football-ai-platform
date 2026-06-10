@@ -63,6 +63,36 @@ def calculate_elo(df, k_factor=30):
 
     return df
 
+def calculate_form(df):
+    print("Calculating rolling team form last 3 games...")
+    #Timeline for home games
+    home_df=df[['match_date', 'home_team_id', 'home_score', 'away_score']].copy()
+    home_df.rename(columns={'home_team_id': 'team', 'home_score': 'gf', 'away_score': 'ga'}, inplace=True)
+
+    # Timeline for away games
+    away_df=df[['match_date', 'away_team_id', 'away_score', 'home_score']].copy()
+    away_df.rename(columns={'away_team_id': 'team', 'away_score': 'gf', 'home_score': 'ga'}, inplace=True)
+
+    history=pd.concat([home_df, away_df])
+    history['pts']=np.where(history['gf']>history['ga'], 3, np.where(history['gf']==history['ga'],1,0))
+    history=history.sort_values(by=['team', 'match_date'])
+
+    history['pts_last_3']=history.groupby('team')['pts'].shift(1).rolling(window=3, min_periods=1).sum()
+    history['pts_last_3']=history['pts_last_3'].fillna(0)
+
+    df=df.merge(history[['match_date', 'team', 'pts_last_3']], left_on=['match_date', 'home_team_id'], right_on=['match_date', 'team'], how='left')
+    df.rename(columns={'pts_last_3': 'home_form'}, inplace=True)
+    df.drop(columns=['team'], inplace=True)
+
+    df=df.merge(history[['match_date', 'team', 'pts_last_3']], left_on=['match_date', 'away_team_id'], right_on=['match_date', 'team'], how='left')
+    df.rename(columns={'pts_last_3': 'away_form'}, inplace=True)
+    df.drop(columns=['team'], inplace=True)
+
+    df=df.drop_duplicates(subset=['match_date', 'home_team_id', 'away_team_id'])
+    df['home_form']=df['home_form'].fillna(0)
+    df['away_form']=df['away_form'].fillna(0)
+
+    return df
 
 
 def engineer_features(df):
@@ -112,10 +142,11 @@ if __name__ == "__main__":
     df = load_data()
     
     if len(df) < 10:
-        print("Not enough data to train a model. Check your database!")
+        print("Not enough data to train a model. Check your database.")
     else:
-        df_with_elo=calculate_elo(df)
-        X, y = engineer_features(df_with_elo)
+        df=calculate_elo(df)
+        df=calculate_form(df)
+        X, y = engineer_features(df)
         trained_model = train_and_evaluate(X, y)
         
         # Save the trained model to disk
