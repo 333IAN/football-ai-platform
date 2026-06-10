@@ -6,14 +6,14 @@ from dotenv import load_dotenv
 from sqlalchemy.orm import sessionmaker
 from database_setup import engine, Team, Match
 
-# 1. Initialize environment variables and database session
+# 1. Environment variables and database session
 load_dotenv()
 API_KEY = os.getenv("API_FOOTBALL_KEY")
 
 Session = sessionmaker(bind=engine)
 session = Session()
 
-# 2. Set up API authentication headers
+# 2. Authentication headers
 headers = {
     "X-RapidAPI-Key": API_KEY,
     "X-RapidAPI-Host": "flashlive-sports.p.rapidapi.com"
@@ -110,7 +110,7 @@ def execute_task(task):
             away_id = event['AWAY_PARTICIPANT_IDS'][0]
             away_name = event['AWAY_NAME']
 
-            # Defensive parsing for match scores (Scheduled items do not have goals yet)
+            
             home_score = event.get('HOME_SCORE_CURRENT')
             if home_score is not None: 
                 home_score = int(home_score)
@@ -119,11 +119,11 @@ def execute_task(task):
             if away_score is not None: 
                 away_score = int(away_score)
 
-            # Insert teams safely first
+            
             get_or_create_team(home_id, home_name)
             get_or_create_team(away_id, away_name)
 
-            # Check if match is already tracked to avoid database collisions
+        
             existing_match = session.query(Match).filter_by(match_id=match_id).first()
             if not existing_match:
                 new_match = Match(
