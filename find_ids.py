@@ -66,5 +66,5 @@ def find_tournament_metadata(search_keyword):
 
 if __name__ == "__main__":
     # Change this string to search for different competitions (e.g., "Euro", "Copa America")
-    TARGET_SEARCH = "Copa"
+    TARGET_SEARCH = "Premier League"
     find_tournament_metadata(TARGET_SEARCH)

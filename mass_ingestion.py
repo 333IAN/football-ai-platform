@@ -35,6 +35,12 @@ SCRAPING_TASKS = [
         "target_status": "FINISHED"
     },
     {
+        "name": "Premier League 23/24",
+        "url": "https://flashlive-sports.p.rapidapi.com/v1/tournaments/results",
+        "stage_id": "SY30SsKF",
+        "target_status": "FINISHED"
+    },
+    {
         "name": "FIFA Club World Cup (Play Offs)",
         "url": "https://flashlive-sports.p.rapidapi.com/v1/tournaments/results",
         "stage_id": "tvVoOjBU",
@@ -80,7 +86,10 @@ def execute_task(task):
             print(f"     [!] Network connection failure on page {page}: {e}. Skipping task.")
             break
             
-        if response.status_code != 200:
+        if response.status_code == 404:
+            print(f"  -> Reached the end of available API pages (404). Task {name} complete.")
+            break
+        elif response.status_code != 200:
             print(f"     [!] API Exception {response.status_code}: {response.text}")
             break
 

@@ -32,3 +32,9 @@ node_modules/
 
 # Logs
 *.log
+
+frontend/node-modules/
+frontend/dist/
+frontend/.eslintcache
+
+.DS_Store
