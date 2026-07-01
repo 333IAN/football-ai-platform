@@ -13,7 +13,7 @@ export default function App() {
   useEffect(() => {
     const fetchTeams = async () => {
       try {
-        const response = await fetch('http://127.0.0.1:8000/teams');
+        const response = await fetch('${import.meta.env.VITE_API_URL}/teams');
         if (!response.ok) throw new Error('Failed to connect to AI server.');
         const data = await response.json();
         // Sort teams alphabetically
@@ -42,7 +42,7 @@ export default function App() {
     setPrediction(null);
 
     try {
-      const response = await fetch('http://127.0.0.1:8000/predict', {
+      const response = await fetch('${import.meta.env.VITE_API_URL}/predict', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
