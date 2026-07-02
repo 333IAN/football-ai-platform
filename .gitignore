@@ -16,8 +16,6 @@ checkpoints/
 *.h5
 *.pt
 *.pth
-*.pkl
-*.joblib
 
 # Data
 data/
