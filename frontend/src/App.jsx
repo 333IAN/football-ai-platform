@@ -13,7 +13,7 @@ export default function App() {
   useEffect(() => {
     const fetchTeams = async () => {
       try {
-        const response = await fetch('${import.meta.env.VITE_API_URL}/teams');
+        const response = await fetch(`${import.meta.env.VITE_API_URL}/teams`);
         if (!response.ok) throw new Error('Failed to connect to AI server.');
         const data = await response.json();
         // Sort teams alphabetically
@@ -42,7 +42,7 @@ export default function App() {
     setPrediction(null);
 
     try {
-      const response = await fetch('${import.meta.env.VITE_API_URL}/predict', {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/predict`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -186,7 +186,7 @@ export default function App() {
                 
                 <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-slate-800 border border-slate-700">
                   <Trophy className={`w-5 h-5 ${
-                    prediction.prediction_class === "1" ? "text-emerald-400" :
+                    prediction.prediction_class === "0" ? "text-emerald-400" :
                     prediction.prediction_class === "2" ? "text-blue-400" : "text-amber-400"
                   }`} />
                   <span className="text-slate-300 font-medium">
