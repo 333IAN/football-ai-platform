@@ -36,7 +36,7 @@ Want to run this locally? Follow these steps:
 
 **1. Clone the repository**
 ```bash
-git clone [https://github.com/333IAN/football-ai-platform.git](https://github.com/333IAN/football-ai-platform.git)
+git clone https://github.com/333IAN/football-ai-platform.git
 cd football-ai-platform
 ```
 
