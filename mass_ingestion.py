@@ -51,6 +51,18 @@ SCRAPING_TASKS = [
         "url": "https://flashlive-sports.p.rapidapi.com/v1/tournaments/fixtures",
         "stage_id": "SbLsX4y7",
         "target_status": "SCHEDULED"
+    },
+    {
+        "name": "World Cup 2022",
+        "url": "https://flashlive-sports.p.rapidapi.com/v1/tournaments/results",
+        "stage_id": "823QwKIu",
+        "target_status": "FINISHED"
+    },
+    {
+        "name": "Copa America 2024",
+        "url": "https://flashlive-sports.p.rapidapi.com/v1/tournaments/results",
+        "stage_id": "IyQoO1xC",
+        "target_status": "FINISHED"
     }
 ]
 
