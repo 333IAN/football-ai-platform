@@ -9,6 +9,7 @@
 A fully decoupled, serverless Machine Learning application that predicts the outcomes of professional football matches using historical data, dynamic Elo ratings, and an XGBoost classification engine.
 
 ![App Screenshot](/assets/mainscreenshot.png)
+![System Architecture Diagram](/assets/footballai.png)
 
 ## 🧠 The Architecture
 
